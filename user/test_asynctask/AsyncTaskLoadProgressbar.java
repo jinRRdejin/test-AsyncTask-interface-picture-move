@@ -24,9 +24,12 @@ import com.jrr.user.myfragment.R;
  Result 执行任务完成后返回的结果类型
 
  onPreExecute  执行后台操作前被调用 在主线程中执行
- onPostExecute  执行onProgressUpdate后系统会自动调用,并将onProgressUpdate值传递过来  在主线程中执行
- doInBackground  后台线程要完成的任务 在子线程中
+ onPostExecute  一般用于更新UI或其他必须在主线程执行的操作,传递参数bitmap为
+     oInBackground方法中的返回值执行onProgressUpdate后系统会自动调用,并将onProgressUpdate值传递过来  在主线程中执行
+ doInBackground  后台线程要完成的任务 不能在doInBackground(Params… params)中更新UI 在子线程中
  onProgressUpdate  在doInBackground  中调用publishProgress 更新任务的进度后,就会触发该方法. 在主线程完成
+ onCancelled 在主线程中,当异步任务被取消时,该方法将被调用, 要注意的是这个时onPostExecute将不会被执行
+ 
  */
 
 public class AsyncTaskLoadProgressbar extends Activity{
