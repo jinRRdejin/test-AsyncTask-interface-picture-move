@@ -23,10 +23,10 @@ import com.jrr.user.myfragment.R;
  Progress 后台执行任务返回的进度值的类型
  Result 执行任务完成后返回的结果类型
 
- onPreExecute  执行后台操作前被调用
- onPostExecute  执行onProgressUpdate后系统会自动调用,并将onProgressUpdate值传递过来
- doInBackground  后台线程要完成的任务
- onProgressUpdate  在doInBackground  中调用publishProgress 更新任务的进度后,就会触发该方法.
+ onPreExecute  执行后台操作前被调用 在主线程中执行
+ onPostExecute  执行onProgressUpdate后系统会自动调用,并将onProgressUpdate值传递过来  在主线程中执行
+ doInBackground  后台线程要完成的任务 在子线程中
+ onProgressUpdate  在doInBackground  中调用publishProgress 更新任务的进度后,就会触发该方法. 在主线程完成
  */
 
 public class AsyncTaskLoadProgressbar extends Activity{
