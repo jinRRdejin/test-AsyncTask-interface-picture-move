@@ -1,0 +1,81 @@
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+
+/**
+ * 功能描述 多线程的知识点——Callable<V> 、Future<V>和FutureTask类
+ *
+ * Callable Feature 接口在线程池中使用
+ *
+ * @author jWX577727
+ * @since 2019/2/26
+ */
+public class CallaleDemo implements Callable {
+
+    private int sum;
+    @Override
+    public Integer call() throws Exception {
+
+        System.out.println("Callable子线程开始计算啦！" + Thread.currentThread());
+        Thread.sleep(2000);
+
+        for(int i=0 ;i<5000;i++){
+            sum=sum+i;
+        }
+        System.out.println("Callable子线程计算结束！" + Thread.currentThread());
+        return sum;
+
+    }
+
+    public static void main(String[] args){
+
+        //创建线程池
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        //创建Callable对象
+        CallaleDemo callaleDemo = new CallaleDemo();
+        //创建FutureTask对象
+        FutureTask<Integer> futureTask = new FutureTask(callaleDemo);
+        //执行任务
+        executorService.submit(futureTask);
+        try {
+            Thread.sleep(1000);
+
+            System.out.println("假设主线程在干其他事情。。。" + Thread.currentThread());
+            if(futureTask.get() != null){
+                //拿到异步结果
+                System.out.println("futureTask.get()-->"+futureTask.get()+ Thread.currentThread());
+            }else{
+                System.out.println("futureTask.get() 未获取到结果。。。");
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        
+    }
+}
+
+Callable子线程开始计算啦！Thread[pool-1-thread-1,5,main]
+假设主线程在干其他事情。。。Thread[main,5,main]
+Callable子线程计算结束！Thread[pool-1-thread-1,5,main]
+futureTask.get()-->12497500Thread[main,5,main]
+Thread[Thread-0,5,main]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
