@@ -66,6 +66,19 @@ futureTask.get()-->12497500Thread[main,5,main]
 Thread[Thread-0,5,main]
 
 
+FutureTask除了实现了Future接口外还实现了Runnable接口，因此FutureTask既可以当做Future对象也可是Runnable对象，当然FutureTask也就可以直接提
+交给线程池来执行。接着我们最关心的是如何创建FutureTask对象，实际上可以通过如下两个构造方法来构建FutureTask
+
+ 总得来说Future有以下3点作用：
+能够中断执行中的任务
+判断任务是否执行完成
+获取任务执行完成后额结果。
+
+public FutureTask(Callable<V> callable) {  
+}  
+public FutureTask(Runnable runnable, V result) {  
+}
+
 
 
 
